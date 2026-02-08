@@ -59,56 +59,59 @@
             transition: background-color 0.3s ease, opacity 0.3s ease;
         }
         
-        /* === BOTÓN PRINCIPAL (ANIMACIÓN SMOOTH) === */
+        /* === BOTÓN PRINCIPAL (COMPACTO Y SMOOTH) === */
         .btn-primary {
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: #000000;
             color: #FFFFFF;
-            font-weight: 600; /* Peso ajustado para minúsculas */
-            font-size: 1.5rem;
-            padding: 2.5rem 3rem; 
+            font-weight: 600;
+            font-size: 1.5rem; /* Tamaño de texto mantenido */
+            
+            /* CAMBIO AQUÍ: Menos padding para hacerlo más ajustado */
+            padding: 1.25rem 2.5rem; 
+            
             border-radius: 999px; 
+            
+            /* CAMBIO AQUÍ: Ancho ajustado al contenido, no forzado */
             width: auto;
-            min-width: 550px;
+            min-width: auto; 
+            
             letter-spacing: -0.02em; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             overflow: hidden;
-            /* Flex gap a 0 porque lo manejaremos con márgenes animados */
             gap: 0; 
         }
         
         /* ESTILOS BASE DE LAS FLECHAS */
         .btn-primary svg {
             display: block;
-            height: 32px; /* Altura fija */
+            height: 32px; 
             fill: #FFFFFF;
-            /* La clave de la suavidad: cubic-bezier */
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* === ESTADO INICIAL === */
 
-        /* Flecha Izquierda: Visible y ocupando espacio */
+        /* Flecha Izquierda */
         .arrow-left {
-            width: 32px;       /* Ancho completo */
+            width: 32px;       
             transform: scale(1);
             opacity: 1;
-            margin-right: 12px; /* Espacio con el texto */
+            margin-right: 12px; 
         }
 
-        /* Flecha Derecha: Invisible y sin ocupar espacio */
+        /* Flecha Derecha */
         .arrow-right {
-            width: 0px;        /* Ancho cero */
+            width: 0px;        
             transform: scale(0);
             opacity: 0;
-            margin-left: 0px;   /* Sin margen */
+            margin-left: 0px;   
         }
 
-        /* === HOVER EFFECTS (El truco suave) === */
+        /* === HOVER EFFECTS === */
         
-        /* 1. La flecha izquierda se encoge suavemente */
         .btn-primary:hover .arrow-left {
             width: 0px;
             transform: scale(0);
@@ -116,7 +119,6 @@
             margin-right: 0;
         }
 
-        /* 2. La flecha derecha crece suavemente */
         .btn-primary:hover .arrow-right {
             width: 32px;
             transform: scale(1);
@@ -136,7 +138,7 @@
             width: 100%;
         }
 
-        /* === BOTONES SECUNDARIOS (Gris Soft) === */
+        /* === BOTONES SECUNDARIOS === */
         .btn-secondary {
             display: flex;
             justify-content: center;
@@ -170,7 +172,6 @@
             transition: color 0.2s;
         }
         
-        /* Flecha mirando a la derecha */
         .download-link svg {
             width: 18px;
             height: 18px;
@@ -189,10 +190,9 @@
             h1 { font-size: 2.5rem; }
             .btn-primary { 
                 font-size: 1.2rem; 
-                padding: 2rem; 
-                min-width: 100%;
+                padding: 1.5rem; /* Un poco más de aire en móvil para el dedo */
+                min-width: 100%; /* En móvil sí que ocupe todo */
             }
-            /* En móvil simplificamos: flecha derecha fija */
             .arrow-left { display: none; }
             .arrow-right { 
                 width: 32px; 
@@ -200,7 +200,7 @@
                 opacity: 1; 
                 margin-left: 10px; 
             }
-            .btn-primary:hover .arrow-right { margin-left: 10px; } /* Evitar saltos en touch */
+            .btn-primary:hover .arrow-right { margin-left: 10px; }
 
             .actions-grid { grid-template-columns: 1fr; } 
             header { margin-bottom: 3rem; }
