@@ -53,13 +53,13 @@
             gap: 4rem;
         }
 
-        /* GLOBAL LINKS TRANSITION (Sin movimiento vertical) */
+        /* TRANSICIONES GLOBALES (Sin saltitos verticales) */
         a { 
             text-decoration: none; 
-            transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
         }
         
-        /* BOTÓN PRINCIPAL (Negro con Flecha) */
+        /* === BOTÓN PRINCIPAL (ANIMACIÓN FLECHA DERECHA) === */
         .btn-primary {
             display: flex;
             justify-content: center;
@@ -71,38 +71,37 @@
             padding: 2.5rem 4rem;
             border-radius: 999px; 
             width: auto;
-            min-width: 500px;
+            min-width: 550px;
             text-transform: uppercase;
             letter-spacing: 0.02em;
             text-align: center;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            gap: 15px; /* Espacio entre flecha y texto */
-            overflow: hidden; /* Mantiene todo contenido */
+            gap: 12px; /* Espacio entre texto y flecha */
         }
         
-        /* Elementos dentro del botón principal para animar */
-        .btn-primary span {
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .btn-primary svg {
+        /* La flecha (icono SVG) */
+        .btn-primary .arrow-icon {
             width: 24px;
             height: 24px;
             fill: #FFFFFF;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            /* Estado INICIAL: Oculta y movida a la izquierda */
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease-out; /* Transición suave */
         }
 
-        /* ANIMACIÓN HOVER PRINCIPAL: Flecha derecha -> <- Texto izquierda */
-        .btn-primary:hover span {
-            transform: translateX(-8px); /* Texto se mueve a la izquierda */
+        /* --- HOVER EFFECTS --- */
+        /* Al pasar el ratón, la flecha aparece y se mueve a su sitio */
+        .btn-primary:hover .arrow-icon {
+            opacity: 1;
+            transform: translateX(0);
         }
-        .btn-primary:hover svg {
-            transform: translateX(8px); /* Flecha se mueve a la derecha */
-        }
+        
         .btn-primary:hover {
-            opacity: 0.95; /* Ligero cambio de opacidad */
+            opacity: 0.95; /* Ligero cambio de opacidad en el botón */
         }
 
-        /* GRID SECUNDARIA */
+        /* === GRID SECUNDARIA === */
         .actions-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr; 
@@ -110,7 +109,7 @@
             width: 100%;
         }
 
-        /* BOTONES SECUNDARIOS (Gris Soft - Sin movimiento) */
+        /* === BOTONES SECUNDARIOS (Gris Soft - Solo cambio color) === */
         .btn-secondary {
             display: flex;
             justify-content: center;
@@ -126,12 +125,11 @@
             line-height: 1.2;
             min-height: 80px;
         }
-        /* Solo cambia el color de fondo, no se mueve */
         .btn-secondary:hover { 
-            background-color: #D6D6D6; /* Un gris un poco más oscuro */
+            background-color: #D6D6D6; /* Solo cambio de color */
         }
 
-        /* FOOTER / DOWNLOAD */
+        /* === FOOTER / DOWNLOAD === */
         .download-link {
             margin-top: 6rem;
             color: #999;
@@ -139,9 +137,20 @@
             text-decoration: none;
             cursor: pointer;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Espacio entre flechita y texto */
             transition: color 0.2s;
         }
+        .download-link svg {
+            width: 16px;
+            height: 16px;
+            fill: #999;
+            transition: fill 0.2s;
+        }
+        
         .download-link:hover { color: #000; }
+        .download-link:hover svg { fill: #000; }
 
         /* RESPONSIVE */
         @media (max-width: 900px) {
@@ -167,22 +176,24 @@
 
     <main>
         <a href="https://lookerstudio.google.com/u/0/reporting/c2064261-38c6-4acd-abca-53b6c0011f84/page/page_12345?s=gjd4ndarrcw" class="btn-primary" target="_blank">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
             <span>Consulta documentación</span>
+            <svg class="arrow-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
         </a>
 
         <div class="actions-grid">
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSfnbPnE_MLQHKZYnU84l90TXc5WSuO4rT5Q23Llafko78KesA/viewform" class="btn-secondary" target="_blank">
                 Nuevo contrato cliente
             </a>
-            
             <a href="#" class="btn-secondary">Nuevo contrato proveedor</a>
             <a href="#" class="btn-secondary">Nuevo pedido</a>
             <a href="#" class="btn-secondary">Nueva confirmación</a>
         </div>
     </main>
 
-    <a href="#" class="download-link">Descargar documentación</a>
+    <a href="#" class="download-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"/></svg>
+        Descargar documentación
+    </a>
 
 </body>
 </html>
