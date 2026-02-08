@@ -59,66 +59,69 @@
             transition: background-color 0.3s ease, opacity 0.3s ease;
         }
         
-        /* === BOTÓN PRINCIPAL (ANIMACIÓN POP-IN / POP-OUT) === */
+        /* === BOTÓN PRINCIPAL (ANIMACIÓN SMOOTH) === */
         .btn-primary {
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: #000000;
             color: #FFFFFF;
-            font-weight: 700; /* Un poco menos bold para minúsculas */
+            font-weight: 600; /* Peso ajustado para minúsculas */
             font-size: 1.5rem;
             padding: 2.5rem 3rem; 
             border-radius: 999px; 
             width: auto;
             min-width: 550px;
-            /* Quitamos text-transform: uppercase para que sea minúsculas */
-            letter-spacing: -0.01em; 
+            letter-spacing: -0.02em; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             overflow: hidden;
-            gap: 0; /* El gap lo manejaremos con margenes en las flechas para la animación */
+            /* Flex gap a 0 porque lo manejaremos con márgenes animados */
+            gap: 0; 
         }
         
-        /* ESTILOS COMUNES DE FLECHA */
+        /* ESTILOS BASE DE LAS FLECHAS */
         .btn-primary svg {
-            width: 32px; /* Flecha MÁS GRANDE */
-            height: 32px;
+            display: block;
+            height: 32px; /* Altura fija */
             fill: #FFFFFF;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto rebote sutil */
+            /* La clave de la suavidad: cubic-bezier */
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* FLECHA IZQUIERDA (Visible por defecto) */
+        /* === ESTADO INICIAL === */
+
+        /* Flecha Izquierda: Visible y ocupando espacio */
         .arrow-left {
-            opacity: 1;
+            width: 32px;       /* Ancho completo */
             transform: scale(1);
-            margin-right: 15px; /* Espacio con el texto */
-            max-width: 32px; /* Ocupa su sitio */
+            opacity: 1;
+            margin-right: 12px; /* Espacio con el texto */
         }
 
-        /* FLECHA DERECHA (Oculta por defecto) */
+        /* Flecha Derecha: Invisible y sin ocupar espacio */
         .arrow-right {
-            opacity: 0;
+            width: 0px;        /* Ancho cero */
             transform: scale(0);
-            margin-left: 0px; 
-            max-width: 0px; /* No ocupa sitio al principio */
+            opacity: 0;
+            margin-left: 0px;   /* Sin margen */
         }
 
-        /* --- HOVER EFFECTS --- */
+        /* === HOVER EFFECTS (El truco suave) === */
         
-        /* 1. Flecha Izquierda desaparece */
+        /* 1. La flecha izquierda se encoge suavemente */
         .btn-primary:hover .arrow-left {
-            opacity: 0;
+            width: 0px;
             transform: scale(0);
+            opacity: 0;
             margin-right: 0;
-            max-width: 0; /* Colapsa el espacio -> El texto se mueve a la izquierda */
         }
 
-        /* 2. Flecha Derecha aparece */
+        /* 2. La flecha derecha crece suavemente */
         .btn-primary:hover .arrow-right {
-            opacity: 1;
+            width: 32px;
             transform: scale(1);
-            margin-left: 15px; /* Añade espacio */
-            max-width: 32px; /* Recupera su tamaño */
+            opacity: 1;
+            margin-left: 12px;
         }
         
         .btn-primary:hover {
@@ -167,7 +170,7 @@
             transition: color 0.2s;
         }
         
-        /* Flecha mirando a la derecha DESPUÉS del texto */
+        /* Flecha mirando a la derecha */
         .download-link svg {
             width: 18px;
             height: 18px;
@@ -189,10 +192,16 @@
                 padding: 2rem; 
                 min-width: 100%;
             }
-            /* En móvil mantenemos la flecha derecha estática para simplificar */
+            /* En móvil simplificamos: flecha derecha fija */
             .arrow-left { display: none; }
-            .arrow-right { opacity: 1; transform: scale(1); max-width: 32px; margin-left: 10px; }
-            
+            .arrow-right { 
+                width: 32px; 
+                transform: scale(1); 
+                opacity: 1; 
+                margin-left: 10px; 
+            }
+            .btn-primary:hover .arrow-right { margin-left: 10px; } /* Evitar saltos en touch */
+
             .actions-grid { grid-template-columns: 1fr; } 
             header { margin-bottom: 3rem; }
             main { gap: 3rem; }
