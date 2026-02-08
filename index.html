@@ -53,14 +53,15 @@
             gap: 4rem;
         }
 
-        /* TRANSICIONES GLOBALES (Sin saltitos verticales) */
+        /* TRANSICIONES GLOBALES */
         a { 
             text-decoration: none; 
             transition: background-color 0.3s ease, opacity 0.3s ease;
         }
         
-        /* === BOTÓN PRINCIPAL (ANIMACIÓN FLECHA DERECHA) === */
+        /* === BOTÓN PRINCIPAL (ANIMACIÓN VIAJE DE FLECHA) === */
         .btn-primary {
+            position: relative; /* Necesario para que la flecha se mueva dentro */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -68,37 +69,50 @@
             color: #FFFFFF;
             font-weight: 700;
             font-size: 1.5rem;
-            padding: 2.5rem 4rem;
+            padding: 2.5rem 2rem; /* Menos padding lateral porque la flecha se mueve */
             border-radius: 999px; 
             width: auto;
             min-width: 550px;
             text-transform: uppercase;
             letter-spacing: 0.02em;
-            text-align: center;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            gap: 12px; /* Espacio entre texto y flecha */
+            overflow: hidden; /* Mantiene la flecha dentro si se desborda */
         }
         
-        /* La flecha (icono SVG) */
+        /* La flecha (posición absoluta) */
         .btn-primary .arrow-icon {
+            position: absolute;
+            left: 35px; /* POSICIÓN INICIAL: Izquierda */
             width: 24px;
             height: 24px;
             fill: #FFFFFF;
-            /* Estado INICIAL: Oculta y movida a la izquierda */
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: all 0.3s ease-out; /* Transición suave */
+            transition: left 0.5s cubic-bezier(0.22, 1, 0.36, 1); /* Movimiento suave 'Garaje' */
+            z-index: 10;
+        }
+
+        /* El texto */
+        .btn-primary span {
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            /* Pequeño ajuste inicial para compensar que la flecha está a la izquierda */
+            transform: translateX(10px); 
         }
 
         /* --- HOVER EFFECTS --- */
-        /* Al pasar el ratón, la flecha aparece y se mueve a su sitio */
+        
+        /* 1. La flecha viaja hasta la derecha */
         .btn-primary:hover .arrow-icon {
-            opacity: 1;
-            transform: translateX(0);
+            /* Calculamos para que quede a la derecha con el mismo margen */
+            left: calc(100% - 35px - 24px); 
+        }
+        
+        /* 2. El texto se mueve a la izquierda para dejar sitio a la flecha y centrarse */
+        .btn-primary:hover span {
+            transform: translateX(-15px);
         }
         
         .btn-primary:hover {
-            opacity: 0.95; /* Ligero cambio de opacidad en el botón */
+            opacity: 0.95;
         }
 
         /* === GRID SECUNDARIA === */
@@ -109,7 +123,7 @@
             width: 100%;
         }
 
-        /* === BOTONES SECUNDARIOS (Gris Soft - Solo cambio color) === */
+        /* === BOTONES SECUNDARIOS (Gris Soft) === */
         .btn-secondary {
             display: flex;
             justify-content: center;
@@ -126,7 +140,7 @@
             min-height: 80px;
         }
         .btn-secondary:hover { 
-            background-color: #D6D6D6; /* Solo cambio de color */
+            background-color: #D6D6D6; 
         }
 
         /* === FOOTER / DOWNLOAD === */
@@ -139,18 +153,22 @@
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 8px; /* Espacio entre flechita y texto */
+            gap: 10px; 
             transition: color 0.2s;
         }
+        /* Flecha mirando a la derecha */
         .download-link svg {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             fill: #999;
-            transition: fill 0.2s;
+            transition: fill 0.2s, transform 0.2s;
         }
         
         .download-link:hover { color: #000; }
-        .download-link:hover svg { fill: #000; }
+        .download-link:hover svg { 
+            fill: #000; 
+            transform: translateX(4px); /* Se mueve un poquito a la derecha al hacer hover */
+        }
 
         /* RESPONSIVE */
         @media (max-width: 900px) {
@@ -160,6 +178,12 @@
                 padding: 2rem; 
                 min-width: 100%;
             }
+            /* En móvil quitamos la animación compleja de posición absoluta para que no se rompa */
+            .btn-primary .arrow-icon { position: static; transform: none; margin-right: 10px; }
+            .btn-primary:hover .arrow-icon { left: auto; }
+            .btn-primary span { transform: none; }
+            .btn-primary:hover span { transform: none; }
+
             .actions-grid { grid-template-columns: 1fr; } 
             header { margin-bottom: 3rem; }
             main { gap: 3rem; }
@@ -170,14 +194,14 @@
 
     <header>
         <img src="logo.png" alt="Garaje de Ideas" class="logo">
-        
         <h1>Internal Docs Hub</h1>
     </header>
 
     <main>
         <a href="https://lookerstudio.google.com/u/0/reporting/c2064261-38c6-4acd-abca-53b6c0011f84/page/page_12345?s=gjd4ndarrcw" class="btn-primary" target="_blank">
-            <span>Consulta documentación</span>
             <svg class="arrow-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
+            
+            <span>Consulta documentación</span>
         </a>
 
         <div class="actions-grid">
@@ -191,8 +215,8 @@
     </main>
 
     <a href="#" class="download-link">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"/></svg>
         Descargar documentación
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
     </a>
 
 </body>
