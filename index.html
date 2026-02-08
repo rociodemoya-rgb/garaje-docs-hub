@@ -59,56 +59,66 @@
             transition: background-color 0.3s ease, opacity 0.3s ease;
         }
         
-        /* === BOTÓN PRINCIPAL (ANIMACIÓN VIAJE DE FLECHA) === */
+        /* === BOTÓN PRINCIPAL (ANIMACIÓN POP-IN / POP-OUT) === */
         .btn-primary {
-            position: relative; /* Necesario para que la flecha se mueva dentro */
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: #000000;
             color: #FFFFFF;
-            font-weight: 700;
+            font-weight: 700; /* Un poco menos bold para minúsculas */
             font-size: 1.5rem;
-            padding: 2.5rem 2rem; /* Menos padding lateral porque la flecha se mueve */
+            padding: 2.5rem 3rem; 
             border-radius: 999px; 
             width: auto;
             min-width: 550px;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
+            /* Quitamos text-transform: uppercase para que sea minúsculas */
+            letter-spacing: -0.01em; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            overflow: hidden; /* Mantiene la flecha dentro si se desborda */
+            overflow: hidden;
+            gap: 0; /* El gap lo manejaremos con margenes en las flechas para la animación */
         }
         
-        /* La flecha (posición absoluta) */
-        .btn-primary .arrow-icon {
-            position: absolute;
-            left: 35px; /* POSICIÓN INICIAL: Izquierda */
-            width: 24px;
-            height: 24px;
+        /* ESTILOS COMUNES DE FLECHA */
+        .btn-primary svg {
+            width: 32px; /* Flecha MÁS GRANDE */
+            height: 32px;
             fill: #FFFFFF;
-            transition: left 0.5s cubic-bezier(0.22, 1, 0.36, 1); /* Movimiento suave 'Garaje' */
-            z-index: 10;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto rebote sutil */
         }
 
-        /* El texto */
-        .btn-primary span {
-            display: block;
-            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-            /* Pequeño ajuste inicial para compensar que la flecha está a la izquierda */
-            transform: translateX(10px); 
+        /* FLECHA IZQUIERDA (Visible por defecto) */
+        .arrow-left {
+            opacity: 1;
+            transform: scale(1);
+            margin-right: 15px; /* Espacio con el texto */
+            max-width: 32px; /* Ocupa su sitio */
+        }
+
+        /* FLECHA DERECHA (Oculta por defecto) */
+        .arrow-right {
+            opacity: 0;
+            transform: scale(0);
+            margin-left: 0px; 
+            max-width: 0px; /* No ocupa sitio al principio */
         }
 
         /* --- HOVER EFFECTS --- */
         
-        /* 1. La flecha viaja hasta la derecha */
-        .btn-primary:hover .arrow-icon {
-            /* Calculamos para que quede a la derecha con el mismo margen */
-            left: calc(100% - 35px - 24px); 
+        /* 1. Flecha Izquierda desaparece */
+        .btn-primary:hover .arrow-left {
+            opacity: 0;
+            transform: scale(0);
+            margin-right: 0;
+            max-width: 0; /* Colapsa el espacio -> El texto se mueve a la izquierda */
         }
-        
-        /* 2. El texto se mueve a la izquierda para dejar sitio a la flecha y centrarse */
-        .btn-primary:hover span {
-            transform: translateX(-15px);
+
+        /* 2. Flecha Derecha aparece */
+        .btn-primary:hover .arrow-right {
+            opacity: 1;
+            transform: scale(1);
+            margin-left: 15px; /* Añade espacio */
+            max-width: 32px; /* Recupera su tamaño */
         }
         
         .btn-primary:hover {
@@ -156,7 +166,8 @@
             gap: 10px; 
             transition: color 0.2s;
         }
-        /* Flecha mirando a la derecha */
+        
+        /* Flecha mirando a la derecha DESPUÉS del texto */
         .download-link svg {
             width: 18px;
             height: 18px;
@@ -167,7 +178,7 @@
         .download-link:hover { color: #000; }
         .download-link:hover svg { 
             fill: #000; 
-            transform: translateX(4px); /* Se mueve un poquito a la derecha al hacer hover */
+            transform: translateX(4px); 
         }
 
         /* RESPONSIVE */
@@ -178,12 +189,10 @@
                 padding: 2rem; 
                 min-width: 100%;
             }
-            /* En móvil quitamos la animación compleja de posición absoluta para que no se rompa */
-            .btn-primary .arrow-icon { position: static; transform: none; margin-right: 10px; }
-            .btn-primary:hover .arrow-icon { left: auto; }
-            .btn-primary span { transform: none; }
-            .btn-primary:hover span { transform: none; }
-
+            /* En móvil mantenemos la flecha derecha estática para simplificar */
+            .arrow-left { display: none; }
+            .arrow-right { opacity: 1; transform: scale(1); max-width: 32px; margin-left: 10px; }
+            
             .actions-grid { grid-template-columns: 1fr; } 
             header { margin-bottom: 3rem; }
             main { gap: 3rem; }
@@ -199,9 +208,11 @@
 
     <main>
         <a href="https://lookerstudio.google.com/u/0/reporting/c2064261-38c6-4acd-abca-53b6c0011f84/page/page_12345?s=gjd4ndarrcw" class="btn-primary" target="_blank">
-            <svg class="arrow-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
+            <svg class="arrow-left" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
             
-            <span>Consulta documentación</span>
+            <span>Consultar documentación</span>
+
+            <svg class="arrow-right" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
         </a>
 
         <div class="actions-grid">
