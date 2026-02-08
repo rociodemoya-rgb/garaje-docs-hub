@@ -24,11 +24,11 @@
             text-align: left;
             width: 100%;
             max-width: 1000px;
-            margin-bottom: 5rem; /* MÁS ESPACIO AQUÍ */
+            margin-bottom: 5rem;
         }
         
         .logo {
-            max-width: 250px; /* Ajusta este tamaño según tu imagen */
+            max-width: 250px;
             height: auto;
             margin-bottom: 1rem;
             display: block;
@@ -49,15 +49,17 @@
             max-width: 1000px;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centramos elementos */
-            gap: 4rem; /* MÁS ESPACIO ENTRE FILAS DE BOTONES */
+            align-items: center;
+            gap: 4rem;
         }
 
-        /* ESTILOS DE BOTONES */
-        a { text-decoration: none; transition: transform 0.2s ease, opacity 0.2s ease; }
-        a:hover { transform: translateY(-3px); }
-
-        /* Botón Principal (Negro Sólido - MÁS CORTO) */
+        /* GLOBAL LINKS TRANSITION (Sin movimiento vertical) */
+        a { 
+            text-decoration: none; 
+            transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+        }
+        
+        /* BOTÓN PRINCIPAL (Negro con Flecha) */
         .btn-primary {
             display: flex;
             justify-content: center;
@@ -66,26 +68,49 @@
             color: #FFFFFF;
             font-weight: 700;
             font-size: 1.5rem;
-            padding: 2.5rem 4rem; /* Padding lateral para darle forma */
+            padding: 2.5rem 4rem;
             border-radius: 999px; 
-            width: auto; /* Ya no es 100% */
-            min-width: 500px; /* Ancho mínimo para presencia */
+            width: auto;
+            min-width: 500px;
             text-transform: uppercase;
             letter-spacing: 0.02em;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1); /* Sutil sombra para elevarlo */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            gap: 15px; /* Espacio entre flecha y texto */
+            overflow: hidden; /* Mantiene todo contenido */
         }
-        .btn-primary:hover { opacity: 0.9; }
+        
+        /* Elementos dentro del botón principal para animar */
+        .btn-primary span {
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .btn-primary svg {
+            width: 24px;
+            height: 24px;
+            fill: #FFFFFF;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
 
-        /* Grid Secundaria */
+        /* ANIMACIÓN HOVER PRINCIPAL: Flecha derecha -> <- Texto izquierda */
+        .btn-primary:hover span {
+            transform: translateX(-8px); /* Texto se mueve a la izquierda */
+        }
+        .btn-primary:hover svg {
+            transform: translateX(8px); /* Flecha se mueve a la derecha */
+        }
+        .btn-primary:hover {
+            opacity: 0.95; /* Ligero cambio de opacidad */
+        }
+
+        /* GRID SECUNDARIA */
         .actions-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr; 
-            gap: 1.5rem; /* Un poco más de aire entre botones grises */
+            gap: 1.5rem;
             width: 100%;
         }
 
-        /* Botones Secundarios (Gris Soft sin borde) */
+        /* BOTONES SECUNDARIOS (Gris Soft - Sin movimiento) */
         .btn-secondary {
             display: flex;
             justify-content: center;
@@ -101,14 +126,17 @@
             line-height: 1.2;
             min-height: 80px;
         }
-        .btn-secondary:hover { background-color: #E0E0E0; }
+        /* Solo cambia el color de fondo, no se mueve */
+        .btn-secondary:hover { 
+            background-color: #D6D6D6; /* Un gris un poco más oscuro */
+        }
 
         /* FOOTER / DOWNLOAD */
         .download-link {
-            margin-top: 6rem; /* Más aire abajo del todo */
+            margin-top: 6rem;
             color: #999;
             font-size: 0.9rem;
-            text-decoration: none; /* SIN SUBRAYADO */
+            text-decoration: none;
             cursor: pointer;
             font-weight: 500;
             transition: color 0.2s;
@@ -121,7 +149,7 @@
             .btn-primary { 
                 font-size: 1.2rem; 
                 padding: 2rem; 
-                min-width: 100%; /* En móvil sí ocupa todo */
+                min-width: 100%;
             }
             .actions-grid { grid-template-columns: 1fr; } 
             header { margin-bottom: 3rem; }
@@ -139,7 +167,8 @@
 
     <main>
         <a href="https://lookerstudio.google.com/u/0/reporting/c2064261-38c6-4acd-abca-53b6c0011f84/page/page_12345?s=gjd4ndarrcw" class="btn-primary" target="_blank">
-            Consulta documentación
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
+            <span>Consulta documentación</span>
         </a>
 
         <div class="actions-grid">
