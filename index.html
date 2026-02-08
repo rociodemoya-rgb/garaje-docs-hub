@@ -145,15 +145,12 @@
             background-color: #D6D6D6; 
         }
 
-        /* === FOOTER / DOWNLOAD (AJUSTADO) === */
+        /* === FOOTER / DOWNLOAD (FIX GROSOR LÍNEA) === */
         .download-link {
             margin-top: 6rem;
             color: #999;
             font-size: 1.3rem;
-            
-            /* CAMBIO 1: Peso de fuente reducido a 600 (antes 700) */
             font-weight: 600; 
-            
             text-decoration: none;
             cursor: pointer;
             display: flex;
@@ -164,7 +161,7 @@
             padding-bottom: 4px;
         }
 
-        /* La línea animada */
+        /* La línea animada (CORREGIDA) */
         .download-link::after {
             content: '';
             position: absolute;
@@ -172,13 +169,16 @@
             left: 0;
             width: 100%;
             
-            /* CAMBIO 2: Grosor de línea reducido a 1px (antes 2px) */
-            height: 1px; 
+            /* CAMBIO TÉCNICO: Usar border en vez de height/background */
+            height: 0;
+            border-bottom: 1px solid #000000;
             
-            background-color: #000000;
             transform: scaleX(0);
             transform-origin: bottom right;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Truco extra para suavizar bordes en algunos navegadores */
+            backface-visibility: hidden; 
         }
         
         /* Flecha SVG */
