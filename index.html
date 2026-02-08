@@ -67,24 +67,17 @@
             background-color: #000000;
             color: #FFFFFF;
             font-weight: 600;
-            font-size: 1.5rem; /* Tamaño de texto mantenido */
-            
-            /* CAMBIO AQUÍ: Menos padding para hacerlo más ajustado */
+            font-size: 1.5rem;
             padding: 1.25rem 2.5rem; 
-            
             border-radius: 999px; 
-            
-            /* CAMBIO AQUÍ: Ancho ajustado al contenido, no forzado */
             width: auto;
             min-width: auto; 
-            
             letter-spacing: -0.02em; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             overflow: hidden;
             gap: 0; 
         }
         
-        /* ESTILOS BASE DE LAS FLECHAS */
         .btn-primary svg {
             display: block;
             height: 32px; 
@@ -92,9 +85,6 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* === ESTADO INICIAL === */
-
-        /* Flecha Izquierda */
         .arrow-left {
             width: 32px;       
             transform: scale(1);
@@ -102,7 +92,6 @@
             margin-right: 12px; 
         }
 
-        /* Flecha Derecha */
         .arrow-right {
             width: 0px;        
             transform: scale(0);
@@ -110,8 +99,6 @@
             margin-left: 0px;   
         }
 
-        /* === HOVER EFFECTS === */
-        
         .btn-primary:hover .arrow-left {
             width: 0px;
             transform: scale(0);
@@ -158,31 +145,62 @@
             background-color: #D6D6D6; 
         }
 
-        /* === FOOTER / DOWNLOAD === */
+        /* === FOOTER / DOWNLOAD (NUEVA ANIMACIÓN) === */
         .download-link {
             margin-top: 6rem;
+            /* AUMENTO DE TAMAÑO Y PESO */
             color: #999;
-            font-size: 0.9rem;
+            font-size: 1.3rem; /* Mucho más grande */
+            font-weight: 700;  /* Más negrita */
+            
             text-decoration: none;
             cursor: pointer;
-            font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 10px; 
-            transition: color 0.2s;
+            gap: 12px; 
+            transition: color 0.3s ease;
+            position: relative; /* Necesario para la línea absoluta */
+            padding-bottom: 4px; /* Espacio para la línea */
+        }
+
+        /* La línea animada (pseudo-elemento) */
+        .download-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px; /* Grosor de la línea */
+            background-color: #000000; /* Color de la línea al aparecer */
+            
+            /* EL TRUCO DE LA ANIMACIÓN */
+            transform: scaleX(0); /* Empieza invisible (ancho 0) */
+            transform-origin: bottom right; /* Se encoge hacia la derecha */
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Animación suave y rápida */
         }
         
+        /* Flecha SVG */
         .download-link svg {
-            width: 18px;
-            height: 18px;
+            width: 20px; /* Un poco más grande también */
+            height: 20px;
             fill: #999;
-            transition: fill 0.2s, transform 0.2s;
+            transition: fill 0.3s ease, transform 0.3s ease;
         }
         
-        .download-link:hover { color: #000; }
+        /* --- HOVER EFFECTS --- */
+        .download-link:hover { 
+            color: #000; /* Texto negro */
+        }
+        
+        /* Al hacer hover, la línea crece desde la izquierda */
+        .download-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
         .download-link:hover svg { 
-            fill: #000; 
-            transform: translateX(4px); 
+            fill: #000; /* Flecha negra */
+            transform: translateX(6px); /* Movimiento más notorio */
         }
 
         /* RESPONSIVE */
@@ -190,8 +208,8 @@
             h1 { font-size: 2.5rem; }
             .btn-primary { 
                 font-size: 1.2rem; 
-                padding: 1.5rem; /* Un poco más de aire en móvil para el dedo */
-                min-width: 100%; /* En móvil sí que ocupe todo */
+                padding: 1.5rem; 
+                min-width: 100%; 
             }
             .arrow-left { display: none; }
             .arrow-right { 
@@ -203,6 +221,8 @@
             .btn-primary:hover .arrow-right { margin-left: 10px; }
 
             .actions-grid { grid-template-columns: 1fr; } 
+            /* En móvil reducimos un poco el tamaño del enlace de descarga para que no sea gigante */
+            .download-link { font-size: 1.1rem; margin-top: 4rem; }
             header { margin-bottom: 3rem; }
             main { gap: 3rem; }
         }
@@ -221,23 +241,4 @@
             
             <span>Consultar documentación</span>
 
-            <svg class="arrow-right" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
-        </a>
-
-        <div class="actions-grid">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfnbPnE_MLQHKZYnU84l90TXc5WSuO4rT5Q23Llafko78KesA/viewform" class="btn-secondary" target="_blank">
-                Nuevo contrato cliente
-            </a>
-            <a href="#" class="btn-secondary">Nuevo contrato proveedor</a>
-            <a href="#" class="btn-secondary">Nuevo pedido</a>
-            <a href="#" class="btn-secondary">Nueva confirmación</a>
-        </div>
-    </main>
-
-    <a href="#" class="download-link">
-        Descargar documentación
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"/></svg>
-    </a>
-
-</body>
-</html>
+            <svg class="arrow-right" viewBox="0 0 24 24" xmlns="http://www.w
