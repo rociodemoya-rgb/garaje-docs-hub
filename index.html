@@ -24,21 +24,23 @@
             text-align: left;
             width: 100%;
             max-width: 1000px;
-            margin-bottom: 3rem;
+            margin-bottom: 5rem; /* MÁS ESPACIO AQUÍ */
         }
-        .brand {
-            font-size: 1rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
+        
+        .logo {
+            max-width: 250px; /* Ajusta este tamaño según tu imagen */
+            height: auto;
+            margin-bottom: 1rem;
+            display: block;
         }
+
         h1 {
             font-size: 4rem;
             font-weight: 800;
             line-height: 1;
             letter-spacing: -0.04em;
             text-transform: uppercase;
+            margin-top: 1rem;
         }
 
         /* MAIN CONTAINER */
@@ -47,14 +49,15 @@
             max-width: 1000px;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            align-items: center; /* Centramos elementos */
+            gap: 4rem; /* MÁS ESPACIO ENTRE FILAS DE BOTONES */
         }
 
         /* ESTILOS DE BOTONES */
         a { text-decoration: none; transition: transform 0.2s ease, opacity 0.2s ease; }
         a:hover { transform: translateY(-3px); }
 
-        /* Botón Principal (Negro Sólido - Looker Studio) */
+        /* Botón Principal (Negro Sólido - MÁS CORTO) */
         .btn-primary {
             display: flex;
             justify-content: center;
@@ -63,20 +66,23 @@
             color: #FFFFFF;
             font-weight: 700;
             font-size: 1.5rem;
-            padding: 2.5rem;
-            border-radius: 999px; /* Pill shape completa */
-            width: 100%;
+            padding: 2.5rem 4rem; /* Padding lateral para darle forma */
+            border-radius: 999px; 
+            width: auto; /* Ya no es 100% */
+            min-width: 500px; /* Ancho mínimo para presencia */
             text-transform: uppercase;
             letter-spacing: 0.02em;
             text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); /* Sutil sombra para elevarlo */
         }
         .btn-primary:hover { opacity: 0.9; }
 
         /* Grid Secundaria */
         .actions-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 columnas */
-            gap: 1rem;
+            grid-template-columns: 1fr 1fr 1fr 1fr; 
+            gap: 1.5rem; /* Un poco más de aire entre botones grises */
+            width: 100%;
         }
 
         /* Botones Secundarios (Gris Soft sin borde) */
@@ -84,44 +90,50 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #F2F2F2; /* Gris muy suave, estilo 'soft' */
+            background-color: #F2F2F2; 
             color: #000000;
             font-weight: 700;
             font-size: 0.95rem;
             padding: 1.5rem 1rem;
-            border-radius: 999px; /* Pill shape */
+            border-radius: 999px; 
             text-align: center;
             text-transform: uppercase;
             line-height: 1.2;
-            min-height: 80px; /* Altura mínima para uniformidad */
+            min-height: 80px;
         }
         .btn-secondary:hover { background-color: #E0E0E0; }
 
         /* FOOTER / DOWNLOAD */
         .download-link {
-            margin-top: 4rem;
-            color: #888;
+            margin-top: 6rem; /* Más aire abajo del todo */
+            color: #999;
             font-size: 0.9rem;
-            text-decoration: underline;
-            text-underline-offset: 4px;
+            text-decoration: none; /* SIN SUBRAYADO */
             cursor: pointer;
             font-weight: 500;
+            transition: color 0.2s;
         }
         .download-link:hover { color: #000; }
 
-        /* RESPONSIVE (Móvil y Tablets) */
+        /* RESPONSIVE */
         @media (max-width: 900px) {
             h1 { font-size: 2.5rem; }
-            .btn-primary { font-size: 1.2rem; padding: 2rem; }
-            /* En tablets y móvil pasamos a 1 columna o 2 si prefieres */
+            .btn-primary { 
+                font-size: 1.2rem; 
+                padding: 2rem; 
+                min-width: 100%; /* En móvil sí ocupa todo */
+            }
             .actions-grid { grid-template-columns: 1fr; } 
+            header { margin-bottom: 3rem; }
+            main { gap: 3rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="brand">Garaje de Ideas</div>
+        <img src="logo.png" alt="Garaje de Ideas" class="logo">
+        
         <h1>Internal Docs Hub</h1>
     </header>
 
