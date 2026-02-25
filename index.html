@@ -168,16 +168,11 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            
-            /* CAMBIO TÉCNICO: Usar border en vez de height/background */
             height: 0;
             border-bottom: 1px solid #000000;
-            
             transform: scaleX(0);
             transform-origin: bottom right;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* Truco extra para suavizar bordes en algunos navegadores */
             backface-visibility: hidden; 
         }
         
@@ -250,12 +245,11 @@
             </a>
             <a href="#" class="btn-secondary">Nuevo contrato proveedor</a>
 
-            <!-- ✅ CAMBIO: abrir en nueva pestaña para no “matar” la landing -->
-            <a href="https://forms.gle/La75y6o8bpzaSCG27" class="btn-secondary" target="_blank" rel="noopener noreferrer">
+            <!-- ✅ CAMBIO: apunta a la nueva Web App de pedidos -->
+            <a href="https://script.google.com/a/macros/garajedeideas.com/s/AKfycbzYn55BE9c1ErGUE8zk21nJ2BvpGt4pcCxFGahCoN-vhTmYdxgXEX65FFDSn4AKsWs25Q/exec" class="btn-secondary" target="_blank" rel="noopener noreferrer">
                 Nuevo pedido
             </a>
 
-            <!-- ✅ NUEVO: Evidencias auditoría -->
             <a href="https://script.google.com/a/macros/garajedeideas.com/s/AKfycbzrK1NYBpn1YMYFKiqbxk8jIx_2xEgaTVZclbLOExYZ3DiHT-Wje53oMWazHk7tPvok/exec" class="btn-secondary" target="_blank" rel="noopener noreferrer">
                 Nueva evidencia
             </a>
